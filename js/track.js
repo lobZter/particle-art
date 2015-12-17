@@ -44,7 +44,7 @@ function track_touch_start(event)
 
 function track_touch_move(event) 
 {
-	if ( touched )
+	if ( !touched )
 	{
 		var ts = event.changedTouches,
 				n = ts.length, t;
@@ -101,7 +101,7 @@ function track_mouse_down( event )
 
 function track_mouse_move(event) 
 {
-	if ( touched )
+	if ( !touched )
 	{
 		track_move( event.pageX, event.pageY );
 	}
@@ -137,7 +137,7 @@ function track_move( x, y )
 {
 	touchX = (x / tw - 1)*tratio;
 	touchY = -(y / th - 1);
-	//console.log( touchX + " -- " + touchY );
+	// console.log( touchX + " -- " + touchY );
 }
 
 function track_end()

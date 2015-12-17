@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>WebGL particles</title> 
+        <title>lobZter</title> 
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <script type="text/javascript" src="js/requestAnimationFrame.js"></script>
@@ -8,9 +8,22 @@
         <script type="text/javascript" src="js/graphicPipeline.js"></script>
         <script id="shader-fs" type="x-shader/x-fragment">
             precision mediump float;
+            varying float x;
+            varying float y;
 
             void main(void) {
-                gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+                float X = abs(x), Y = abs(y), r = 0.01, g = 0.01, b = 0.01;
+                // if(X<0.33)
+                //     r += X*3.0;
+                // else if(X<0.67)
+                //     g += X*1.5;
+                // else
+                //     b += X;
+                //X -= 0.33;
+                //g = X/3.0*2.0;
+                //X -= 0.33;
+                //b = X;
+                gl_FragColor = vec4(0.7*pow(1.0/x,2.0), 0.7*x, 1.0*pow(x, 2.0), 0.07);
             }
         </script>
         <script id="shader-vs" type="x-shader/x-vertex">
@@ -18,10 +31,14 @@
 
             uniform mat4 modelViewMatrix;
             uniform mat4 perspectiveMatrix;
+            varying float x;
+            varying float y;
 
             void main(void) {
-                gl_PointSize = 2.0;
+                gl_PointSize = 3.0;
                 gl_Position = perspectiveMatrix * modelViewMatrix * vec4(vertexPosition, 1.0);
+                x = gl_Position.x;
+                y = gl_Position.y;
             }
         </script>
     </head>
